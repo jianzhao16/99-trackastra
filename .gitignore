@@ -1,4 +1,5 @@
 /data
+.idea/
 
 /scripts/data
 /scripts/runs
@@ -177,3 +178,4 @@ cython_debug/
 #.idea/
 
 trackastra/_version.py
+.idea/inspectionProfiles/profiles_settings.xml
