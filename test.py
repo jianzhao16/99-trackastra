@@ -24,3 +24,25 @@ ctc_tracks, masks_tracked = graph_to_ctc(
       masks,
       outdir="tracked",
 )
+
+# Visualise in napari
+napari_tracks, napari_tracks_graph, _ = graph_to_napari_tracks(track_graph)
+
+import napari
+viewer = napari.Viewer()
+viewer.add_image(imgs, name="Images")                    # (T, Y, X)
+viewer.add_labels(masks_tracked, name="Tracked Labels")  # (T, Y, X)
+viewer.add_tracks(data=napari_tracks,
+                  graph=napari_tracks_graph,
+                  name="Tracks")
+
+# --- Play the time axis at 10 seconds per frame ---
+# Determine which axis is time; for (T, Y, X) it's axis 0.
+# If you have axis labels, you could do:
+# axis = viewer.dims.axis_labels.index('t') if 't' in viewer.dims.axis_labels else 0
+#axis = 0
+
+# Play at 0.1 FPS = 10 s/frame
+#viewer.dims.play(axis=axis, fps=0.1, loop=True)
+
+napari.run()
